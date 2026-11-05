@@ -189,6 +189,28 @@
       letter-spacing: 0.05em;
     }
 
+    .sc-corridor-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .sc-corridor-scroll svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-width: 720px;
+    }
+
+    .sc-mobile-swipe-hint {
+      display: none;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: right;
+    }
+
     /* Full-width text alignment */
     .hero-subtitle,
     .section-desc,
@@ -208,9 +230,10 @@
     }
 
     .container {
-      max-width: 1340px;
+      width: min(94vw, 1500px);
+      max-width: 100%;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 clamp(14px, 2.2vw, 32px);
     }
 
     /* ===== FIXED TOP NAVBAR (ALWAYS VISIBLE ON SCROLL) ===== */
@@ -1126,39 +1149,269 @@
     html[lang="vi"] [data-lang="en"] { display: none !important; }
     html[lang="en"] [data-lang="vi"] { display: none !important; }
 
-    /* Responsive */
-    @media (max-width: 1080px) {
+    /* ===== ADAPTIVE MULTI-DEVICE & MOBILE RESPONSIVE SYSTEM ===== */
+
+    /* 1. Ultra-Wide Monitors (2K / 4K >= 1680px) */
+    @media (min-width: 1680px) {
+      html {
+        font-size: 105%;
+      }
+      .container {
+        width: min(92vw, 1660px);
+      }
+    }
+
+    /* 2. Small Laptops & Tablets Landscape (<= 1180px): 2-Tier Fixed Navbar + Adaptive Grids */
+    @media (max-width: 1180px) {
+      html {
+        scroll-padding-top: 120px;
+      }
+      body {
+        padding-top: 108px;
+      }
+      .navbar-inner {
+        height: auto;
+        padding: 10px 0 8px;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+      }
+      .brand {
+        order: 1;
+        font-size: 0.88rem;
+      }
+      .nav-actions {
+        order: 2;
+        margin-left: auto;
+        gap: 6px;
+      }
+      .nav-links {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 6px;
+        gap: 6px;
+      }
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-links a {
+        font-size: 0.78rem;
+        padding: 5px 10px;
+        flex-shrink: 0;
+      }
+      .kpi-strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* 3. Tablets & Medium Screens (<= 980px) */
+    @media (max-width: 980px) {
       .hero-grid,
       .panel-grid,
       .simulator-card,
       .exp-skills-grid {
         grid-template-columns: 1fr;
-      }
-      .kpi-strip {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
       }
       .pillars-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
       .story-tabs {
         grid-template-columns: repeat(2, 1fr);
       }
-      .nav-links {
-        display: none;
+      .sc-mobile-swipe-hint {
+        display: block;
       }
     }
 
-    @media (max-width: 560px) {
-      .kpi-strip,
-      .project-kpi-mini,
-      .story-tabs,
-      .sim-results {
+    /* 4. Mobile & Small Tablets (<= 768px) */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 28px 0 24px;
+      }
+      .section {
+        padding: 32px 0;
+      }
+      .role-pill {
+        white-space: normal;
+        font-size: 0.7rem;
+        line-height: 1.4;
+        padding: 6px 12px;
+        border-radius: 12px;
+      }
+      .hero h1 {
+        font-size: clamp(1.55rem, 6.2vw, 2.1rem);
+        line-height: 1.25;
+      }
+      .hero-subtitle,
+      .section-desc,
+      .pillar-card p,
+      .callout-box p,
+      .panel-list li {
+        text-align: left;
+      }
+      .kpi-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 20px 0 32px;
+      }
+      .kpi-card.kpi-5 {
+        grid-column: 1 / -1;
+      }
+      .kpi-label {
+        white-space: normal;
+      }
+      .pillars-grid {
         grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .filter-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 6px;
+        margin-bottom: 20px;
+      }
+      .filter-bar::-webkit-scrollbar {
+        display: none;
+      }
+      .filter-btn {
+        flex-shrink: 0;
+        padding: 7px 14px;
+        font-size: 0.8rem;
+      }
+      .project-card,
+      .simulator-card,
+      .hero-profile-card {
+        padding: 18px;
+      }
+      .project-title {
+        font-size: 1.12rem;
+      }
+      .project-kpi-mini {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px 14px;
+      }
+      .kpi-mini-item strong {
+        white-space: normal;
+        font-size: 1.05rem;
+      }
+      .story-tab-btn {
+        white-space: normal;
+        font-size: 0.78rem;
+        padding: 9px 10px;
+        line-height: 1.3;
+      }
+      .story-panel {
+        padding: 16px;
+      }
+      .workflow-steps {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .wf-step {
+        width: 100%;
+      }
+      .wf-arrow {
+        justify-content: center;
+        transform: rotate(90deg);
+        height: 18px;
+        width: 100%;
+      }
+      .back-to-top-fab {
+        bottom: 16px;
+        right: 16px;
+        padding: 9px 14px;
+        font-size: 0.78rem;
+      }
+    }
+
+    /* 5. Smartphones Portrait (<= 560px) */
+    @media (max-width: 560px) {
+      .brand span:last-child {
+        font-size: 0.78rem;
+        letter-spacing: -0.03em;
+      }
+      .nav-actions .btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        gap: 4px;
+      }
+      .hero-cta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .hero-cta .btn {
+        justify-content: center;
+        padding: 9px 10px;
+        font-size: 0.8rem;
+      }
+      .hero-cta .btn-primary {
+        grid-column: 1 / -1;
+      }
+      .hero-meta {
+        gap: 8px 14px;
+        font-size: 0.8rem;
+      }
+      .hero-meta span {
+        white-space: normal;
+      }
+      .profile-top div > div {
+        white-space: normal !important;
       }
       .profile-summary-list li {
         flex-direction: column;
         align-items: flex-start;
         gap: 2px;
+        white-space: normal;
+      }
+      .profile-summary-list strong {
+        white-space: normal;
+        text-align: left;
+      }
+      .badge-domain,
+      .badge-company,
+      .tag,
+      .timeline-date {
+        white-space: normal;
+      }
+      .project-links {
+        width: 100%;
+      }
+      .project-links .btn {
+        flex: 1;
+        justify-content: center;
+      }
+      .sim-control label {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .sim-results {
+        grid-template-columns: 1fr;
+        padding: 14px;
+        gap: 10px;
+      }
+    }
+
+    /* 6. Compact Phones (<= 380px) */
+    @media (max-width: 380px) {
+      .kpi-strip,
+      .story-tabs,
+      .hero-cta {
+        grid-template-columns: 1fr;
+      }
+      .brand span:last-child {
+        max-width: 155px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   </style>
@@ -1466,6 +1719,7 @@
           <span>🚢 🚛 🏭 <span data-lang="vi">Mạng Lưới Vận Hành Chuỗi Cung Ứng &amp; Logistics Thực Chiến (Plan → Source/Port → Make → Warehouse → Deliver/O2C)</span><span data-lang="en">Live End-to-End Supply Chain &amp; Logistics Corridor (Plan → Port/Source → Make → Warehouse → Deliver/O2C)</span></span>
           <span style="color:var(--accent-secondary); font-size:0.76rem;">● LIVE TELEMETRY &amp; DIGITAL TWIN</span>
         </div>
+        <div class="sc-corridor-scroll">
         <svg viewBox="0 0 1200 135" width="100%" height="135" xmlns="http://www.w3.org/2000/svg" style="display:block;">
           <!-- Connecting Road & Maritime Line -->
           <line x1="60" y1="88" x2="1140" y2="88" stroke="#334155" stroke-width="6" stroke-linecap="round" />
@@ -1528,6 +1782,11 @@
             <circle cx="54" cy="20" r="4" fill="#f8fafc" />
           </g>
         </svg>
+        </div>
+        <div class="sc-mobile-swipe-hint">
+          <span data-lang="vi">↔ Vuốt ngang để xem toàn tuyến Chuỗi cung ứng</span>
+          <span data-lang="en">↔ Swipe horizontally to view full Supply Chain corridor</span>
+        </div>
       </div>
     </section>
 
@@ -2855,8 +3114,13 @@
         }
       }
 
+      const navContainer = document.getElementById('topNavLinks');
       document.querySelectorAll('#topNavLinks a').forEach(link => {
         if (link.dataset.section === activeId) {
+          if (!link.classList.contains('active') && navContainer && navContainer.scrollWidth > navContainer.clientWidth) {
+            const scrollTarget = link.offsetLeft - (navContainer.clientWidth / 2) + (link.offsetWidth / 2);
+            navContainer.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+          }
           link.classList.add('active');
         } else {
           link.classList.remove('active');
@@ -2865,6 +3129,7 @@
     }
 
     window.addEventListener('scroll', handleScrollNavigation, { passive: true });
+    window.addEventListener('resize', handleScrollNavigation, { passive: true });
     handleScrollNavigation();
   </script>
 

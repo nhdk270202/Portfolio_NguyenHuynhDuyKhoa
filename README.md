@@ -56,3 +56,4 @@ Each project card in [`index.html`](./index.html) presents **① The Operational
 - **Phone:** (+84) 964-601-712
 - **LinkedIn:** [linkedin.com/in/nhdk270202](https://www.linkedin.com/in/nhdk270202/)
 - **GitHub:** [github.com/nhdk270202](https://github.com/nhdk270202)
+
