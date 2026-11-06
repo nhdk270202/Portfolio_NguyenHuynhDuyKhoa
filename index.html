@@ -93,18 +93,18 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(180deg, rgba(7, 13, 25, 0.84) 0%, rgba(7, 13, 25, 0.72) 45%, rgba(7, 13, 25, 0.90) 100%),
+        linear-gradient(180deg, rgba(7, 13, 25, 0.88) 0%, rgba(7, 13, 25, 0.80) 45%, rgba(7, 13, 25, 0.94) 100%),
         url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=2000&q=80');
       background-size: cover;
       background-position: center 35%;
       background-repeat: no-repeat;
-      opacity: 0.95;
-      filter: saturate(1.15) contrast(1.05);
+      opacity: 0.92;
+      filter: saturate(1.1) contrast(1.04);
     }
 
     html[data-theme="light"] .sc-bg-photo {
       background-image:
-        linear-gradient(180deg, rgba(241, 245, 249, 0.88) 0%, rgba(241, 245, 249, 0.80) 45%, rgba(241, 245, 249, 0.94) 100%),
+        linear-gradient(180deg, rgba(241, 245, 249, 0.92) 0%, rgba(241, 245, 249, 0.85) 45%, rgba(241, 245, 249, 0.96) 100%),
         url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=2000&q=80');
     }
 
@@ -113,7 +113,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      opacity: 0.38;
+      opacity: 0.32;
     }
 
     html[data-theme="light"] .sc-bg-svg {
@@ -211,13 +211,14 @@
       text-align: right;
     }
 
-    /* Full-width text alignment */
+    /* Clean left-aligned SaaS typography (no stretched word gaps) */
     .hero-subtitle,
     .section-desc,
     .pillar-card p,
     .callout-box p,
     .panel-list li {
-      text-align: justify;
+      text-align: left;
+      line-height: 1.65;
     }
 
     code, pre, .mono {
@@ -396,17 +397,42 @@
       border-color: transparent;
     }
 
-    /* ===== HERO SECTION ===== */
+    /* ===== HERO SECTION (BENTO GLASS CARDS) ===== */
     .hero {
-      padding: 52px 0 36px;
+      padding: 36px 0 32px;
       position: relative;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.22fr 0.78fr;
-      gap: 36px;
-      align-items: center;
+      grid-template-columns: 1.28fr 0.72fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-intro-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 30px 32px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-intro-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
     }
 
     .role-pill {
@@ -472,12 +498,28 @@
     }
 
     .hero-profile-card {
-      background: var(--bg-surface);
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 28px;
       box-shadow: var(--shadow-card);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .hero-profile-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
     }
 
     .profile-top {
@@ -684,22 +726,61 @@
       white-space: nowrap;
     }
 
-    /* ===== FILTER BUTTONS ===== */
+    /* ===== FILTER & VIEW MODE TOOLBAR ===== */
+    .projects-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+
+    .view-mode-switch {
+      display: inline-flex;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .view-mode-btn {
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .view-mode-btn.active {
+      background: var(--accent-primary-bg);
+      color: var(--accent-primary);
+      font-weight: 700;
     }
 
     .filter-btn {
-      padding: 8px 16px;
+      padding: 8px 15px;
       border-radius: 999px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid var(--border-strong);
-      background: var(--bg-surface);
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
       color: var(--text-secondary);
       transition: all 0.18s ease;
       white-space: nowrap;
@@ -715,26 +796,57 @@
       color: #070d19;
       border-color: var(--accent-primary);
       font-weight: 700;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
     }
 
     /* ===== INTERACTIVE PROJECT STORY CARDS ===== */
     .projects-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .projects-stack.bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: start;
+    }
+
+    .projects-stack.bento-grid .panel-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .projects-stack.bento-grid .story-tabs {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .project-card {
-      background: var(--bg-surface);
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg);
-      padding: 28px;
+      padding: 26px 28px;
       box-shadow: var(--shadow-card);
-      transition: border-color 0.2s ease;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      opacity: 0.85;
     }
 
     .project-card:hover {
       border-color: var(--accent-primary);
+      transform: translateY(-2px);
     }
 
     .project-header {
@@ -815,41 +927,46 @@
       color: var(--text-muted);
     }
 
-    /* Story Tabs */
+    /* Segmented Pill Story Tabs */
     .story-tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 20px;
+      gap: 6px;
+      margin-bottom: 18px;
+      background: var(--bg-base);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border-strong);
     }
 
     .story-tab-btn {
-      padding: 11px 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-strong);
-      background: var(--bg-elevated);
-      color: var(--text-secondary);
-      font-size: 0.82rem;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.81rem;
       font-weight: 600;
       cursor: pointer;
       text-align: left;
-      transition: all 0.15s ease;
+      transition: all 0.16s ease;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       white-space: nowrap;
     }
 
     .story-tab-btn:hover {
-      border-color: var(--accent-primary);
       color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .story-tab-btn.active {
-      background: var(--accent-primary-bg);
+      background: var(--bg-elevated);
       border-color: var(--accent-primary);
       color: var(--accent-primary);
       font-weight: 700;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     .story-tab-btn.tab-roi.active {
@@ -1213,9 +1330,13 @@
       .hero-grid,
       .panel-grid,
       .simulator-card,
-      .exp-skills-grid {
+      .exp-skills-grid,
+      .projects-stack.bento-grid {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+      .view-mode-switch {
+        display: none;
       }
       .pillars-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1439,32 +1560,29 @@
       <path class="anim-route" d="M 80 260 Q 560 40 1080 220 T 1840 180" fill="none" stroke="url(#routeGrad)" stroke-width="2.2" />
       <path class="anim-route" d="M 140 420 Q 720 180 1340 340 T 1880 290" fill="none" stroke="url(#routeGrad)" stroke-width="1.6" />
 
-      <!-- Pulsing GPS / Geo-fencing Telemetry Nodes -->
+      <!-- Pulsing GPS / Geo-fencing Telemetry Nodes (Clean Radar Rings without Overlapping Text) -->
       <g transform="translate(260, 205)">
-        <circle cx="0" cy="0" r="5" fill="#38bdf8" />
+        <circle cx="0" cy="0" r="4" fill="#38bdf8" />
         <circle cx="0" cy="0" r="14" fill="none" stroke="#38bdf8" stroke-width="1.5">
           <animate attributeName="r" values="6;28" dur="3s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.9;0" dur="3s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.8;0" dur="3s" repeatCount="indefinite" />
         </circle>
-        <text x="12" y="4" fill="#38bdf8" font-family="monospace" font-size="11" font-weight="bold">FACTORY HUB [MILP]</text>
       </g>
 
       <g transform="translate(1080, 220)">
-        <circle cx="0" cy="0" r="5" fill="#10b981" />
+        <circle cx="0" cy="0" r="4" fill="#10b981" />
         <circle cx="0" cy="0" r="14" fill="none" stroke="#10b981" stroke-width="1.5">
           <animate attributeName="r" values="6;28" dur="3.4s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.9;0" dur="3.4s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.8;0" dur="3.4s" repeatCount="indefinite" />
         </circle>
-        <text x="12" y="4" fill="#10b981" font-family="monospace" font-size="11" font-weight="bold">SEAPORT &amp; WMS NODE</text>
       </g>
 
       <g transform="translate(1660, 200)">
-        <circle cx="0" cy="0" r="5" fill="#f59e0b" />
+        <circle cx="0" cy="0" r="4" fill="#f59e0b" />
         <circle cx="0" cy="0" r="14" fill="none" stroke="#f59e0b" stroke-width="1.5">
           <animate attributeName="r" values="6;28" dur="2.8s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.9;0" dur="2.8s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.8;0" dur="2.8s" repeatCount="indefinite" />
         </circle>
-        <text x="12" y="4" fill="#f59e0b" font-family="monospace" font-size="11" font-weight="bold">GLOBAL MARKET &amp; O2C</text>
       </g>
 
       <!-- Seaport Gantry Cranes (Left & Right Port Terminal Silhouette) -->
@@ -1593,7 +1711,8 @@
     <!-- ===== HERO SECTION ===== -->
     <section class="hero">
       <div class="hero-grid">
-        <div>
+        <div class="hero-intro-card">
+          <div>
           <div class="role-pill">
             <span>⚡ Supply Chain Analyst • Process Optimization • Digitalization</span>
           </div>
@@ -1608,6 +1727,8 @@
           <p class="hero-subtitle" data-lang="en">
             Supply Chain Analyst &amp; Digitalization Specialist with hands-on impact at <strong>Mondelez&nbsp;International</strong> and <strong>Nam&nbsp;Thuan&nbsp;Apparel</strong>. Combining Process Engineering roots (HCMUT), mathematical optimization (<strong>Python&nbsp;MILP/Gurobi</strong>), and end-to-end automation (<strong>Power&nbsp;BI, Power&nbsp;Query, Power&nbsp;Automate, VBA, SAP&nbsp;O2C</strong>) to eliminate operational bottlenecks across manufacturing, inventory, and&nbsp;logistics.
           </p>
+          </div>
+          <div>
           <div class="hero-meta">
             <span>📍 Ho Chi Minh City,&nbsp;Vietnam</span>
             <span>📞 (+84)&nbsp;964-601-712</span>
@@ -1627,6 +1748,7 @@
             <a href="CV_NguyenHuynhDuyKhoa.pdf" target="_blank" rel="noopener" class="btn">
               📑 <span data-lang="vi">Xem CV&nbsp;gốc</span><span data-lang="en">Original&nbsp;CV</span>
             </a>
+          </div>
           </div>
         </div>
 
@@ -1878,26 +2000,36 @@
         </p>
       </div>
 
-      <!-- Category Filter -->
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterProjects('all', this)">
-          <span data-lang="vi">Tất cả dự án&nbsp;(6)</span><span data-lang="en">All Projects&nbsp;(6)</span>
-        </button>
-        <button class="filter-btn" onclick="filterProjects('planning', this)">
-          <span data-lang="vi">Hoạch định Sản xuất &amp; Tối ưu&nbsp;MILP</span><span data-lang="en">Production &amp; Capacity&nbsp;Planning</span>
-        </button>
-        <button class="filter-btn" onclick="filterProjects('inventory', this)">
-          <span data-lang="vi">Tự động hóa Kho &amp; Kế hoạch Tồn&nbsp;kho</span><span data-lang="en">Warehouse &amp; Inventory&nbsp;Automation</span>
-        </button>
-        <button class="filter-btn" onclick="filterProjects('o2c', this)">
-          <span data-lang="vi">Số hóa O2C, SAP &amp; Logistics&nbsp;BI</span><span data-lang="en">O2C, SAP &amp; Logistics&nbsp;BI</span>
-        </button>
-        <button class="filter-btn" onclick="filterProjects('quality', this)">
-          <span data-lang="vi">Cảnh báo Chất lượng &amp; Quy trình&nbsp;ERP</span><span data-lang="en">Quality Alert &amp; ERP&nbsp;Process</span>
-        </button>
+      <!-- Category Filter & View Mode Toolbar -->
+      <div class="projects-toolbar">
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="filterProjects('all', this)">
+            <span data-lang="vi">Tất cả dự án&nbsp;(6)</span><span data-lang="en">All Projects&nbsp;(6)</span>
+          </button>
+          <button class="filter-btn" onclick="filterProjects('planning', this)">
+            <span data-lang="vi">Hoạch định Sản xuất &amp; Tối ưu&nbsp;MILP</span><span data-lang="en">Production &amp; Capacity&nbsp;Planning</span>
+          </button>
+          <button class="filter-btn" onclick="filterProjects('inventory', this)">
+            <span data-lang="vi">Tự động hóa Kho &amp; Kế hoạch Tồn&nbsp;kho</span><span data-lang="en">Warehouse &amp; Inventory&nbsp;Automation</span>
+          </button>
+          <button class="filter-btn" onclick="filterProjects('o2c', this)">
+            <span data-lang="vi">Số hóa O2C, SAP &amp; Logistics&nbsp;BI</span><span data-lang="en">O2C, SAP &amp; Logistics&nbsp;BI</span>
+          </button>
+          <button class="filter-btn" onclick="filterProjects('quality', this)">
+            <span data-lang="vi">Cảnh báo Chất lượng &amp; Quy trình&nbsp;ERP</span><span data-lang="en">Quality Alert &amp; ERP&nbsp;Process</span>
+          </button>
+        </div>
+        <div class="view-mode-switch" title="Chuyển chế độ bố cục / Switch Layout Mode">
+          <button class="view-mode-btn active" onclick="setProjectViewMode('stack', this)">
+            📑 <span data-lang="vi">Chi tiết (1&nbsp;Cột)</span><span data-lang="en">Full View (1&nbsp;Col)</span>
+          </button>
+          <button class="view-mode-btn" onclick="setProjectViewMode('bento', this)">
+            🗂️ <span data-lang="vi">Lưới Bento (2&nbsp;Cột)</span><span data-lang="en">Bento Grid (2&nbsp;Cols)</span>
+          </button>
+        </div>
       </div>
 
-      <div class="projects-stack">
+      <div class="projects-stack" id="projectsStack">
 
         <!-- ================= PROJECT 1: LINE BALANCING MILP ================= -->
         <article class="project-card" data-category="planning">
@@ -3054,6 +3186,18 @@
           card.style.display = 'none';
         }
       });
+    }
+
+    function setProjectViewMode(mode, btn) {
+      document.querySelectorAll('.view-mode-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const stack = document.getElementById('projectsStack');
+      if (!stack) return;
+      if (mode === 'bento') {
+        stack.classList.add('bento-grid');
+      } else {
+        stack.classList.remove('bento-grid');
+      }
     }
 
     function updateSimulator() {
